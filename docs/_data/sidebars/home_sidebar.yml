@@ -10,9 +10,9 @@ entries:
       title: Overview
       url: /
     - output: web,pdf
-      title: Pachyderm Utils
-      url: core.html
+      title: Utils
+      url: utils.html
     output: web
-    title: pachderm_tutorial
+    title: pachyderm_tutorial
   output: web
   title: Sidebar

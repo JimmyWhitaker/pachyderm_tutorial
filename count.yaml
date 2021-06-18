@@ -1,0 +1,11 @@
+pipeline:
+  name: count
+description: Count the number of lines in a csv file
+input:
+  pfs:
+    glob: /
+    repo: data
+transform:
+  cmd: ['/bin/sh']
+  stdin: ['wc -l /pfs/data/iris.csv > /pfs/out/line_count.txt']
+  image: alpine:3.14.0

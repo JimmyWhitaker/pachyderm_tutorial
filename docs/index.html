@@ -29,6 +29,24 @@ nb_path: "index.ipynb"
 </div>
     {% endraw %}
 
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> autoreload
+<span class="o">%</span><span class="k">autoreload</span> 2
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This file will become your README and also the index of your documentation.</p>
@@ -44,6 +62,20 @@ nb_path: "index.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<ol>
+<li><p>Create a free Pachyderm cluster on <a href="https://hub.pachyderm.com/">Pachyderm Hub</a>.</p>
+</li>
+<li><p>Connect to JupyterHub in the cluster</p>
+</li>
+<li><p>Install this package</p>
+</li>
+</ol>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p><code>pip install pachyderm_tutorial</code></p>
 
 </div>
@@ -51,13 +83,13 @@ nb_path: "index.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="How-to-use">How to use<a class="anchor-link" href="#How-to-use"> </a></h2>
+<h2 id="Pachyderm-File-System-Basics">Pachyderm File System Basics<a class="anchor-link" href="#Pachyderm-File-System-Basics"> </a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Fill me in please! Don't forget code examples:</p>
+<p>Connect to the Pachyderm cluster by creating a client.</p>
 
 </div>
 </div>
@@ -69,7 +101,97 @@ nb_path: "index.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="mi">1</span><span class="o">+</span><span class="mi">1</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">client</span> <span class="o">=</span> <span class="n">python_pachyderm</span><span class="o">.</span><span class="n">Client</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Create a Pachyderm data repository called <code>data</code></p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">client</span><span class="o">.</span><span class="n">create_repo</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">_InactiveRpcError</span>                         Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-6-76af16ae8b99&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>client<span class="ansi-blue-fg">.</span>create_repo<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;data&#34;</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">/opt/conda/lib/python3.8/site-packages/python_pachyderm/mixin/pfs.py</span> in <span class="ansi-cyan-fg">create_repo</span><span class="ansi-blue-fg">(self, repo_name, description, update)</span>
+<span class="ansi-green-intense-fg ansi-bold">     91</span>         <span class="ansi-blue-fg">*</span><span class="ansi-red-fg"> </span><span class="ansi-red-fg">`</span>update<span class="ansi-red-fg">`</span><span class="ansi-blue-fg">:</span> Whether to update <span class="ansi-green-fg">if</span> the repo already exists<span class="ansi-blue-fg">.</span>
+<span class="ansi-green-intense-fg ansi-bold">     92</span>         &#34;&#34;&#34;
+<span class="ansi-green-fg">---&gt; 93</span><span class="ansi-red-fg">         return self._req(
+</span><span class="ansi-green-intense-fg ansi-bold">     94</span>             Service<span class="ansi-blue-fg">.</span>PFS<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;CreateRepo&#34;</span><span class="ansi-blue-fg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">     95</span>             repo<span class="ansi-blue-fg">=</span>pfs_proto<span class="ansi-blue-fg">.</span>Repo<span class="ansi-blue-fg">(</span>name<span class="ansi-blue-fg">=</span>repo_name<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span>
+
+<span class="ansi-green-fg">/opt/conda/lib/python3.8/site-packages/python_pachyderm/client.py</span> in <span class="ansi-cyan-fg">_req</span><span class="ansi-blue-fg">(self, grpc_service, grpc_method_name, req, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    278</span> 
+<span class="ansi-green-intense-fg ansi-bold">    279</span>         grpc_method <span class="ansi-blue-fg">=</span> getattr<span class="ansi-blue-fg">(</span>stub<span class="ansi-blue-fg">,</span> grpc_method_name<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">--&gt; 280</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> grpc_method<span class="ansi-blue-fg">(</span>req<span class="ansi-blue-fg">,</span> metadata<span class="ansi-blue-fg">=</span>self<span class="ansi-blue-fg">.</span>_metadata<span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">/opt/conda/lib/python3.8/site-packages/grpc/_channel.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-fg">(self, request, timeout, metadata, credentials, wait_for_ready, compression)</span>
+<span class="ansi-green-intense-fg ansi-bold">    944</span>         state, call, = self._blocking(request, timeout, metadata, credentials,
+<span class="ansi-green-intense-fg ansi-bold">    945</span>                                       wait_for_ready, compression)
+<span class="ansi-green-fg">--&gt; 946</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> _end_unary_response_blocking<span class="ansi-blue-fg">(</span>state<span class="ansi-blue-fg">,</span> call<span class="ansi-blue-fg">,</span> <span class="ansi-green-fg">False</span><span class="ansi-blue-fg">,</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    947</span> 
+<span class="ansi-green-intense-fg ansi-bold">    948</span>     def with_call(self,
+
+<span class="ansi-green-fg">/opt/conda/lib/python3.8/site-packages/grpc/_channel.py</span> in <span class="ansi-cyan-fg">_end_unary_response_blocking</span><span class="ansi-blue-fg">(state, call, with_call, deadline)</span>
+<span class="ansi-green-intense-fg ansi-bold">    847</span>             <span class="ansi-green-fg">return</span> state<span class="ansi-blue-fg">.</span>response
+<span class="ansi-green-intense-fg ansi-bold">    848</span>     <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 849</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">raise</span> _InactiveRpcError<span class="ansi-blue-fg">(</span>state<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    850</span> 
+<span class="ansi-green-intense-fg ansi-bold">    851</span> 
+
+<span class="ansi-red-fg">_InactiveRpcError</span>: &lt;_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.UNAVAILABLE
+	details = &#34;failed to connect to all addresses&#34;
+	debug_error_string = &#34;{&#34;created&#34;:&#34;@1624053187.650576167&#34;,&#34;description&#34;:&#34;Failed to pick subchannel&#34;,&#34;file&#34;:&#34;src/core/ext/filters/client_channel/client_channel.cc&#34;,&#34;file_line&#34;:5419,&#34;referenced_errors&#34;:[{&#34;created&#34;:&#34;@1624053187.650572136&#34;,&#34;description&#34;:&#34;failed to connect to all addresses&#34;,&#34;file&#34;:&#34;src/core/ext/filters/client_channel/lb_policy/pick_first/pick_first.cc&#34;,&#34;file_line&#34;:397,&#34;grpc_status&#34;:14}]}&#34;
+&gt;</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">python_pachyderm</span><span class="o">.</span><span class="n">__version__</span>
 </pre></div>
 
     </div>
@@ -84,9 +206,824 @@ nb_path: "index.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>2</pre>
+<pre>&#39;7.0.0-alpha.1&#39;</pre>
 </div>
 
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pachctl create repo data
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pachctl list repo
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>NAME CREATED      SIZE (MASTER) ACCESS LEVEL 
+data 1 second ago 0B            OWNER         
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>When we list our repos, we can see that we have an empty data repository, with no data in it. So let's add some data.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%writefile</span> iris.csv
+<span class="mf">5.1</span><span class="p">,</span><span class="mf">3.5</span><span class="p">,</span><span class="mf">1.4</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="n">Iris</span><span class="o">-</span><span class="n">setosa</span>
+<span class="mf">4.9</span><span class="p">,</span><span class="mf">3.0</span><span class="p">,</span><span class="mf">1.4</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="n">Iris</span><span class="o">-</span><span class="n">setosa</span>
+<span class="mf">4.7</span><span class="p">,</span><span class="mf">3.2</span><span class="p">,</span><span class="mf">1.3</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="n">Iris</span><span class="o">-</span><span class="n">setosa</span>
+<span class="mf">4.6</span><span class="p">,</span><span class="mf">3.1</span><span class="p">,</span><span class="mf">1.5</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="n">Iris</span><span class="o">-</span><span class="n">setosa</span>
+<span class="mf">7.0</span><span class="p">,</span><span class="mf">3.2</span><span class="p">,</span><span class="mf">4.7</span><span class="p">,</span><span class="mf">1.4</span><span class="p">,</span><span class="n">Iris</span><span class="o">-</span><span class="n">versicolor</span>
+<span class="mf">6.4</span><span class="p">,</span><span class="mf">3.2</span><span class="p">,</span><span class="mf">4.5</span><span class="p">,</span><span class="mf">1.5</span><span class="p">,</span><span class="n">Iris</span><span class="o">-</span><span class="n">versicolor</span>
+<span class="mf">6.9</span><span class="p">,</span><span class="mf">3.1</span><span class="p">,</span><span class="mf">4.9</span><span class="p">,</span><span class="mf">1.5</span><span class="p">,</span><span class="n">Iris</span><span class="o">-</span><span class="n">versicolor</span>
+<span class="mf">5.5</span><span class="p">,</span><span class="mf">2.3</span><span class="p">,</span><span class="mf">4.0</span><span class="p">,</span><span class="mf">1.3</span><span class="p">,</span><span class="n">Iris</span><span class="o">-</span><span class="n">versicolor</span>
+<span class="mf">6.3</span><span class="p">,</span><span class="mf">3.3</span><span class="p">,</span><span class="mf">6.0</span><span class="p">,</span><span class="mf">2.5</span><span class="p">,</span><span class="n">Iris</span><span class="o">-</span><span class="n">virginica</span>
+<span class="mf">5.8</span><span class="p">,</span><span class="mf">2.7</span><span class="p">,</span><span class="mf">5.1</span><span class="p">,</span><span class="mf">1.9</span><span class="p">,</span><span class="n">Iris</span><span class="o">-</span><span class="n">virginica</span>
+<span class="mf">7.1</span><span class="p">,</span><span class="mf">3.0</span><span class="p">,</span><span class="mf">5.9</span><span class="p">,</span><span class="mf">2.1</span><span class="p">,</span><span class="n">Iris</span><span class="o">-</span><span class="n">virginica</span>
+<span class="mf">6.3</span><span class="p">,</span><span class="mf">2.9</span><span class="p">,</span><span class="mf">5.6</span><span class="p">,</span><span class="mf">1.8</span><span class="p">,</span><span class="n">Iris</span><span class="o">-</span><span class="n">virginica</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Writing iris.csv
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Data repositories in Pachyderm automatically track versions of the data placed in  them. Similar to Git, we organize our data via branches, so we will push our data to the <code>master</code> branch of our <code>data</code> repository.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pachctl put file data@master -f iris.csv
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>iris.csv 364.00b / 364.00 b [======================================] 0s 0.00 b/s
+iris.csv 364.00b / 364.00 b [======================================] 0s 0.00 b/s
+iris.csv 364.00b / 364.00 b [======================================] 0s 0.00 b/s
+iris.csv 364.00b / 364.00 b [======================================] 0s 0.00 b/s
+iris.csv 364.00b / 364.00 b [======================================] 0s 0.00 b/s
+iris.csv 364.00b / 364.00 b [======================================] 0s 0.00 b/s
+iris.csv 364.00b / 364.00 b [======================================] 0s 0.00 b/s
+iris.csv 364.00b / 364.00 b [======================================] 0s 0.00 b/s
+iris.csv 364.00b / 364.00 b [======================================] 0s 0.00 b/s
+iris.csv 364.00b / 364.00 b [======================================] 0s 0.00 b/s
+iris.csv 364.00b / 364.00 b [======================================] 0s 0.00 b/s
+iris.csv 364.00b / 364.00 b [======================================] 0s 0.00 b/s
+iris.csv 364.00b / 364.00 b [======================================] 0s 0.00 b/s
+iris.csv 364.00b / 364.00 b [======================================] 0s 0.00 b/s
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can look at the data that's been uploaded to our <code>data</code> repository, by listing the files on the master branch.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pachctl list file data@master
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>NAME      TYPE SIZE 
+/iris.csv file 364B 
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Similarly, if we want to delete our file we can do that as well.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pachctl delete file data@master:/iris.csv
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pachctl list file data@master
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>NAME TYPE SIZE 
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now let's add it back again.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pachctl put file data@master -f iris.csv
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>iris.csv 364.00b / 364.00 b [======================================] 0s 0.00 b/s
+iris.csv 364.00b / 364.00 b [======================================] 0s 0.00 b/s
+iris.csv 364.00b / 364.00 b [======================================] 0s 0.00 b/s
+iris.csv 364.00b / 364.00 b [======================================] 0s 0.00 b/s
+iris.csv 364.00b / 364.00 b [======================================] 0s 0.00 b/s
+iris.csv 364.00b / 364.00 b [======================================] 0s 0.00 b/s
+iris.csv 364.00b / 364.00 b [======================================] 0s 0.00 b/s
+iris.csv 364.00b / 364.00 b [======================================] 0s 0.00 b/s
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now we can list all of the commits that have been made to our repository to see the history of the <code>master</code> branch.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pachctl list commit data
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>REPO BRANCH COMMIT                           FINISHED       SIZE PROGRESS DESCRIPTION
+data master be040bd068fb4e67ae59cd2f40bb2a0c 16 minutes ago 364B -         
+data master 44e71eeb040e4453a13014c22c9a80ed 17 minutes ago 0B   -         
+data master 4670ab8ce78e4306a5789144f30b4afd 20 minutes ago 364B -         
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Pachyderm keeps a record of all the changes that happen to the <code>data</code> repository. This way if we ever want to revert to a previous version of our dataset, we can do it.</p>
+<p>For example, if we wanted to change move the head of our <code>master</code> branch to the first commit, we could run the following command (note the commit hashes will be different if you are running this yourself):</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pachctl create branch data@master --head 4670ab8ce78e4306a5789144f30b4afd
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pachctl list branch data
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>BRANCH HEAD                             TRIGGER 
+master 4670ab8ce78e4306a5789144f30b4afd -       
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can also use <a href="https://docs.pachyderm.com/latest/concepts/data-concepts/history/#ancestry-syntax">Ancestry Syntax</a> to traverse commits. <code>^</code> for the parent of the commit or we can reference the commits in numerical order using <code>.n</code>, where <code>n</code> is the commit number.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pachctl create branch data@master --head be040bd068fb4e67ae59cd2f40bb2a0c
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pachctl list commit data@master^
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>REPO BRANCH COMMIT                           FINISHED       SIZE PROGRESS DESCRIPTION
+data master 44e71eeb040e4453a13014c22c9a80ed 17 minutes ago 0B   -         
+data master 4670ab8ce78e4306a5789144f30b4afd 21 minutes ago 364B -         
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pachctl list commit data@master.1
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>REPO BRANCH COMMIT                           FINISHED       SIZE PROGRESS DESCRIPTION
+data master 4670ab8ce78e4306a5789144f30b4afd 21 minutes ago 364B -         
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pachctl list commit data@master.-1
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>REPO BRANCH COMMIT                           FINISHED       SIZE PROGRESS DESCRIPTION
+data master 44e71eeb040e4453a13014c22c9a80ed 17 minutes ago 0B   -         
+data master 4670ab8ce78e4306a5789144f30b4afd 21 minutes ago 364B -         
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pachctl list branch data
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>BRANCH HEAD                             TRIGGER 
+master be040bd068fb4e67ae59cd2f40bb2a0c -       
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Pachyderm-Pipeline-System-Basics">Pachyderm Pipeline System Basics<a class="anchor-link" href="#Pachyderm-Pipeline-System-Basics"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Pachyderm also lets you create code pipelines that can be triggered by your data. These pipelines connect to your data repositories, ensuring that they run anytime your data is updated.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Here is an example of a Pachyderm pipeline.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%writefile</span> count.yaml
+<span class="n">pipeline</span><span class="p">:</span>
+  <span class="n">name</span><span class="p">:</span> <span class="n">count</span>
+<span class="n">description</span><span class="p">:</span> <span class="n">Count</span> <span class="n">the</span> <span class="n">number</span> <span class="n">of</span> <span class="n">lines</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">csv</span> <span class="n">file</span>
+<span class="nb">input</span><span class="p">:</span>
+  <span class="n">pfs</span><span class="p">:</span>
+    <span class="n">glob</span><span class="p">:</span> <span class="o">/</span>
+    <span class="n">repo</span><span class="p">:</span> <span class="n">data</span>
+<span class="n">transform</span><span class="p">:</span>
+  <span class="n">cmd</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;/bin/sh&#39;</span><span class="p">]</span>
+  <span class="n">stdin</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;wc -l /pfs/data/iris.csv &gt; /pfs/out/line_count.txt&#39;</span><span class="p">]</span>
+  <span class="n">image</span><span class="p">:</span> <span class="n">alpine</span><span class="p">:</span><span class="mf">3.14</span><span class="o">.</span><span class="mi">0</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Writing count.yaml
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>When our pipeline runs, it will map the data from our <code>data</code> repository into the container that's running our pipeline. It will also automatically create a new data repository to hold and version our output(s).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can submit our pipeline to Pachyderm by using the <code>create pipeline</code> command.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pachctl create pipeline -f count.yaml
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>If we list our pipelines, we can see the  status of them.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pachctl list pipeline
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>NAME  VERSION INPUT  CREATED        STATE / LAST JOB  DESCRIPTION                             
+count 1       data:/ 15 seconds ago <span class="ansi-green-fg">running</span> / <span class="ansi-green-fg">success</span> Count the number of lines in a csv file 
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>It looks like our pipeline failed, so let's inspect it and see why.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pachctl list job --pipeline<span class="o">=</span>count
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>ID                               PIPELINE STARTED       DURATION  RESTART PROGRESS  DL   UL  STATE   
+9bd27e46d1b64bd0bde16acefa5dff15 count    4 seconds ago 2 seconds 0       1 + 0 / 1 364B 22B <span class="ansi-green-fg">success</span> 
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can inspect the logs for the pipeline to see what went wrong. (Note there are 3 <a href="https://docs.pachyderm.com/latest/reference/pipeline_spec/#datum-tries-optional">tries</a> here.)</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pachctl list file count@master
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>NAME            TYPE SIZE 
+/line_count.txt file 22B  
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pachctl get file count@master:/line_count.txt -o ./line_count.txt
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>./line_count.txt 0.00b / 2.00 b [----------------------------------] 0s 0.00 b/s
+./line_count.txt 2.00b / 2.00 b [==================================] 0s 0.00 b/s
+./line_count.txt 2.00b / 2.00 b [==================================] 0s 0.00 b/s
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cat</span> <span class="n">line_count</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>0
+</pre>
+</div>
 </div>
 
 </div>

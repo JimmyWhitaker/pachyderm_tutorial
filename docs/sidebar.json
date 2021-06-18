@@ -1,6 +1,6 @@
 {
-  "pachderm_tutorial": {
+  "pachyderm_tutorial": {
     "Overview": "/",
-    "Pachyderm Utils": "core.html"
+    "Utils": "utils.html"
   }
 }
