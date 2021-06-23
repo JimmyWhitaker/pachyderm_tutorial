@@ -2,11 +2,11 @@
 SHELL := /bin/bash
 SRC = $(wildcard ./*.ipynb)
 
-all: pachderm_tutorial docs
+all: pachyderm_tutorial docs
 
-pachderm_tutorial: $(SRC)
+pachyderm_tutorial: $(SRC)
 	nbdev_build_lib
-	touch pachderm_tutorial
+	touch pachyderm_tutorial
 
 sync:
 	nbdev_update_lib

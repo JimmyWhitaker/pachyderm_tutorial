@@ -2,7 +2,7 @@ topnav:
 - title: Topnav
   items:
     - title: github
-      external_url: https://github.com/JimmyWhitaker/pachderm_tutorial/tree/master/
+      external_url: https://github.com/JimmyWhitaker/pachyderm_tutorial/tree/master/
 
 #Topnav dropdowns
 topnav_dropdowns:

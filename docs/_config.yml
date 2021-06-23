@@ -1,7 +1,7 @@
-repository: JimmyWhitaker/pachderm_tutorial
+repository: JimmyWhitaker/pachyderm_tutorial
 output: web
-topnav_title: pachderm_tutorial
-site_title: pachderm_tutorial
+topnav_title: pachyderm_tutorial
+site_title: pachyderm_tutorial
 company_name: Jimmy W.
 description: Pachyderm tutorial utilities
 # Set to false to disable KaTeX math
