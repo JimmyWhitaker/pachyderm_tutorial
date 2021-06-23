@@ -15,79 +15,21 @@ This file will become your README and also the index of your documentation.
 
 2. Connect to JupyterHub in the cluster
 
-3. Install this package
+3. Clone this repo 
 
 `pip install pachyderm_tutorial`
 
 ## Pachyderm File System Basics
 
-Connect to the Pachyderm cluster by creating a client. 
-
-```python
-client = python_pachyderm.Client()
-```
-
 Create a Pachyderm data repository called `data`
 
 ```python
-client.create_repo("data")
+!pachctl version
 ```
 
-
-    ---------------------------------------------------------------------------
-
-    _InactiveRpcError                         Traceback (most recent call last)
-
-    <ipython-input-6-76af16ae8b99> in <module>
-    ----> 1 client.create_repo("data")
-    
-
-    /opt/conda/lib/python3.8/site-packages/python_pachyderm/mixin/pfs.py in create_repo(self, repo_name, description, update)
-         91         * `update`: Whether to update if the repo already exists.
-         92         """
-    ---> 93         return self._req(
-         94             Service.PFS, "CreateRepo",
-         95             repo=pfs_proto.Repo(name=repo_name),
-
-
-    /opt/conda/lib/python3.8/site-packages/python_pachyderm/client.py in _req(self, grpc_service, grpc_method_name, req, **kwargs)
-        278 
-        279         grpc_method = getattr(stub, grpc_method_name)
-    --> 280         return grpc_method(req, metadata=self._metadata)
-    
-
-    /opt/conda/lib/python3.8/site-packages/grpc/_channel.py in __call__(self, request, timeout, metadata, credentials, wait_for_ready, compression)
-        944         state, call, = self._blocking(request, timeout, metadata, credentials,
-        945                                       wait_for_ready, compression)
-    --> 946         return _end_unary_response_blocking(state, call, False, None)
-        947 
-        948     def with_call(self,
-
-
-    /opt/conda/lib/python3.8/site-packages/grpc/_channel.py in _end_unary_response_blocking(state, call, with_call, deadline)
-        847             return state.response
-        848     else:
-    --> 849         raise _InactiveRpcError(state)
-        850 
-        851 
-
-
-    _InactiveRpcError: <_InactiveRpcError of RPC that terminated with:
-    	status = StatusCode.UNAVAILABLE
-    	details = "failed to connect to all addresses"
-    	debug_error_string = "{"created":"@1624053187.650576167","description":"Failed to pick subchannel","file":"src/core/ext/filters/client_channel/client_channel.cc","file_line":5419,"referenced_errors":[{"created":"@1624053187.650572136","description":"failed to connect to all addresses","file":"src/core/ext/filters/client_channel/lb_policy/pick_first/pick_first.cc","file_line":397,"grpc_status":14}]}"
-    >
-
-
-```python
-python_pachyderm.__version__
-```
-
-
-
-
-    '7.0.0-alpha.1'
-
+    COMPONENT           VERSION             
+    pachctl             1.13.0              
+    pachd               1.12.5              
 
 
 ```python
@@ -321,14 +263,39 @@ We can inspect the logs for the pipeline to see what went wrong. (Note there are
 !pachctl get file count@master:/line_count.txt -o ./line_count.txt
 ```
 
-    ./line_count.txt 0.00b / 2.00 b [----------------------------------] 0s 0.00 b/s
-    [1A[J./line_count.txt 2.00b / 2.00 b [==================================] 0s 0.00 b/s
-    [1A[J./line_count.txt 2.00b / 2.00 b [==================================] 0s 0.00 b/s
+    ./line_count.txt 0.00b / 22.00 b [---------------------------------] 0s 0.00 b/s
+    [1A[J./line_count.txt 22.00b / 22.00 b [================================] 0s 0.00 b/s
+    [1A[J./line_count.txt 22.00b / 22.00 b [================================] 0s 0.00 b/s
+    [1A[J./line_count.txt 22.00b / 22.00 b [================================] 0s 0.00 b/s
 
 
 ```python
 cat line_count.txt
 ```
 
-    0
+    12 /pfs/data/iris.csv
 
+
+## Python-Pachyderm
+
+Create a client to connect to the Pachyderm clutser.
+
+```python
+client = python_pachyderm.Client.new_from_config()
+```
+
+```python
+client.create_repo('python-data')
+```
+
+
+
+
+    
+
+
+
+```python
+with client.commit("python-data", "master") as commit:
+    client.put_file_bytes(commit, "/dir_a/data.txt", b"DATA")
+```
