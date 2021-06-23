@@ -963,7 +963,7 @@ count 1       data:/ 15 seconds ago <span class="ansi-green-fg">running</span> /
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">client</span> <span class="o">=</span> <span class="n">python_pachyderm</span><span class="o">.</span><span class="n">Client</span><span class="o">.</span><span class="n">new_from_config</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 
     </div>
@@ -980,7 +980,7 @@ count 1       data:/ 15 seconds ago <span class="ansi-green-fg">running</span> /
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">client</span><span class="o">.</span><span class="n">create_repo</span><span class="p">(</span><span class="s1">&#39;python-data&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 
     </div>
@@ -1013,8 +1013,7 @@ count 1       data:/ 15 seconds ago <span class="ansi-green-fg">running</span> /
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="n">client</span><span class="o">.</span><span class="n">commit</span><span class="p">(</span><span class="s2">&quot;python-data&quot;</span><span class="p">,</span> <span class="s2">&quot;master&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">commit</span><span class="p">:</span>
-    <span class="n">client</span><span class="o">.</span><span class="n">put_file_bytes</span><span class="p">(</span><span class="n">commit</span><span class="p">,</span> <span class="s2">&quot;/dir_a/data.txt&quot;</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&quot;DATA&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#     client.put_file_bytes(commit, &quot;/dir_a/data.txt&quot;, b&quot;DATA&quot;)</span>
 </pre></div>
 
     </div>

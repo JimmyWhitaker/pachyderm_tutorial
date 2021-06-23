@@ -281,11 +281,11 @@ cat line_count.txt
 Create a client to connect to the Pachyderm clutser.
 
 ```python
-client = python_pachyderm.Client.new_from_config()
+# client = python_pachyderm.Client.new_from_config()
 ```
 
 ```python
-client.create_repo('python-data')
+# client.create_repo('python-data')
 ```
 
 
@@ -296,6 +296,6 @@ client.create_repo('python-data')
 
 
 ```python
-with client.commit("python-data", "master") as commit:
-    client.put_file_bytes(commit, "/dir_a/data.txt", b"DATA")
+# with client.commit("python-data", "master") as commit:
+#     client.put_file_bytes(commit, "/dir_a/data.txt", b"DATA")
 ```
