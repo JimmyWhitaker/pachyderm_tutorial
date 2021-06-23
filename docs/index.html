@@ -945,6 +945,31 @@ count 1       data:/ 15 seconds ago <span class="ansi-green-fg">running</span> /
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p>Clear all our data out for the next section</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># !pachctl delete pipeline --all</span>
+<span class="c1"># !pachctl delete repo --all</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Python-Pachyderm">Python-Pachyderm<a class="anchor-link" href="#Python-Pachyderm"> </a></h2>
 </div>
 </div>
@@ -963,7 +988,38 @@ count 1       data:/ 15 seconds ago <span class="ansi-green-fg">running</span> /
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">python_pachyderm</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>6.2.0
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">client</span> <span class="o">=</span> <span class="n">python_pachyderm</span><span class="o">.</span><span class="n">Client</span><span class="o">.</span><span class="n">new_from_config</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -980,7 +1036,7 @@ count 1       data:/ 15 seconds ago <span class="ansi-green-fg">running</span> /
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">client</span><span class="o">.</span><span class="n">create_repo</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -1013,10 +1069,114 @@ count 1       data:/ 15 seconds ago <span class="ansi-green-fg">running</span> /
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#     client.put_file_bytes(commit, &quot;/dir_a/data.txt&quot;, b&quot;DATA&quot;)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="n">client</span><span class="o">.</span><span class="n">commit</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;master&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">commit</span><span class="p">:</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">put_file_bytes</span><span class="p">(</span><span class="n">commit</span><span class="p">,</span> <span class="s2">&quot;data.txt&quot;</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&quot;DATA&quot;</span><span class="p">)</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">client</span><span class="o">.</span><span class="n">list_repo</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[repo {
+  name: &#34;data&#34;
+}
+created {
+  seconds: 1624489726
+  nanos: 662871220
+}
+size_bytes: 4
+auth_info {
+  access_level: OWNER
+}
+branches {
+  repo {
+    name: &#34;data&#34;
+  }
+  name: &#34;master&#34;
+}
+]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">file_list</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">list_file</span><span class="p">((</span><span class="s1">&#39;data&#39;</span><span class="p">,</span><span class="s1">&#39;master&#39;</span><span class="p">),</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="n">include_contents</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">file_list</span><span class="p">:</span> 
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>file {
+  commit {
+    repo {
+      name: &#34;data&#34;
+    }
+    id: &#34;3309835f727c4e4aa760ebf26421cdb8&#34;
+  }
+  path: &#34;/data.txt&#34;
+}
+file_type: FILE
+size_bytes: 4
+hash: &#34;\330Ukb\227\364\273^7gc\022\025\254\201\004\000\026\331\314G\013\003^)\006\030\304]\004\305\025&#34;
+objects {
+  hash: &#34;4ba7d4149c32f5ccc6e54190beef0f503d1e637249baa9e4b123f5aa5c89506f299c10a7e32ab1e4bae30ed32df848f87d9b03a640320b0ca758c5ee56cb2db4&#34;
+}
+committed {
+  seconds: 1624489733
+  nanos: 99330690
+}
+
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 

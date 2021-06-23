@@ -276,16 +276,31 @@ cat line_count.txt
     12 /pfs/data/iris.csv
 
 
+Clear all our data out for the next section
+
+```python
+## Uncomment and run if continuing on
+# !pachctl delete pipeline --all
+# !pachctl delete repo --all
+```
+
 ## Python-Pachyderm
 
 Create a client to connect to the Pachyderm clutser.
 
 ```python
-# client = python_pachyderm.Client.new_from_config()
+print(python_pachyderm.__version__)
+```
+
+    6.2.0
+
+
+```python
+client = python_pachyderm.Client.new_from_config()
 ```
 
 ```python
-# client.create_repo('python-data')
+client.create_repo('data')
 ```
 
 
@@ -296,6 +311,63 @@ Create a client to connect to the Pachyderm clutser.
 
 
 ```python
-# with client.commit("python-data", "master") as commit:
-#     client.put_file_bytes(commit, "/dir_a/data.txt", b"DATA")
+with client.commit("data", "master") as commit:
+    client.put_file_bytes(commit, "data.txt", b"DATA")
 ```
+
+```python
+client.list_repo()
+```
+
+
+
+
+    [repo {
+      name: "data"
+    }
+    created {
+      seconds: 1624489726
+      nanos: 662871220
+    }
+    size_bytes: 4
+    auth_info {
+      access_level: OWNER
+    }
+    branches {
+      repo {
+        name: "data"
+      }
+      name: "master"
+    }
+    ]
+
+
+
+```python
+file_list = client.list_file(('data','master'), '/', include_contents=True)
+
+for f in file_list: 
+    print(f)
+```
+
+    file {
+      commit {
+        repo {
+          name: "data"
+        }
+        id: "3309835f727c4e4aa760ebf26421cdb8"
+      }
+      path: "/data.txt"
+    }
+    file_type: FILE
+    size_bytes: 4
+    hash: "\330Ukb\227\364\273^7gc\022\025\254\201\004\000\026\331\314G\013\003^)\006\030\304]\004\305\025"
+    objects {
+      hash: "4ba7d4149c32f5ccc6e54190beef0f503d1e637249baa9e4b123f5aa5c89506f299c10a7e32ab1e4bae30ed32df848f87d9b03a640320b0ca758c5ee56cb2db4"
+    }
+    committed {
+      seconds: 1624489733
+      nanos: 99330690
+    }
+    
+
